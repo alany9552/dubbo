@@ -139,6 +139,7 @@ public class AnnotationUtilsTest {
         annotations = getDeclaredAnnotations(A.class, a -> isSameType(a, Service.class));
         assertEquals(1, annotations.size());
         Service service = (Service) annotations.get(0);
+        //This is potential flaky part...Class can't cast issue
         assertEquals("java.lang.CharSequence", service.interfaceName());
         assertEquals(CharSequence.class, service.interfaceClass());
     }
@@ -182,6 +183,7 @@ public class AnnotationUtilsTest {
     public void testGetAllMetaAnnotations() {
         List<Annotation> metaAnnotations = getAllMetaAnnotations(Service5.class);
         int offset = 0;
+        // Flaky part -> Order issue: Declared Field Problem
         assertEquals(9, metaAnnotations.size());
         assertEquals(Inherited.class, metaAnnotations.get(offset++).annotationType());
         assertEquals(Service4.class, metaAnnotations.get(offset++).annotationType());
